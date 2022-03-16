@@ -6,10 +6,11 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.TreeViewExamples;
 using UnityEngine;
+using UnityEngine.Networking;
 
-namespace AwtterSDK.Editor.PackagesTreeView
+namespace AwtterSDK.Editor.AssetsTreeView
 {
-	internal class PackagesView : TreeViewWithTreeModel<PackageElement>
+	internal class AssetsView : TreeViewWithTreeModel<AssetElement>
 	{
 		const float kRowHeights = 20f;
 		const float kToggleWidth = 18f;
@@ -59,13 +60,14 @@ namespace AwtterSDK.Editor.PackagesTreeView
 			}
 		}
 
-		public PackagesView(TreeViewState state, MultiColumnHeader multicolumnHeader, TreeModel<PackageElement> model) : base(state, multicolumnHeader, model)
+		public AssetsView(TreeViewState state, MultiColumnHeader multicolumnHeader, TreeModel<AssetElement> model) : base(state, multicolumnHeader, model)
 		{
 			// Custom setup
 			extraSpaceBeforeIconAndLabel = 0f;
 			rowHeight = kRowHeights;
 			columnIndexForTreeFoldouts = 2;
 			showAlternatingRowBackgrounds = true;
+			customFoldoutYOffset = (kRowHeights - EditorGUIUtility.singleLineHeight) * 0.5f; // center foldout in the row since we also center content. See RowGUI
 			showBorder = true;
 			Reload();
 		}
@@ -81,11 +83,11 @@ namespace AwtterSDK.Editor.PackagesTreeView
 			return rows;
 		}
 
-		int GetIcon1Index(TreeViewItem<PackageElement> item) => 0;
+		int GetIcon1Index(TreeViewItem<AssetElement> item) => 0;
 
 		protected override void RowGUI(RowGUIArgs args)
 		{
-			var item = (TreeViewItem<PackageElement>)args.item;
+			var item = (TreeViewItem<AssetElement>)args.item;
 
 			for (int i = 0; i < args.GetNumVisibleColumns(); ++i)
 			{
@@ -93,18 +95,36 @@ namespace AwtterSDK.Editor.PackagesTreeView
 			}
 		}
 
-		void CellGUI(Rect cellRect, TreeViewItem<PackageElement> item, MyColumns column, ref RowGUIArgs args)
+		public static Dictionary<string, Texture> Icons = new Dictionary<string, Texture>();
+
+		void CellGUI(Rect cellRect, TreeViewItem<AssetElement> item, MyColumns column, ref RowGUIArgs args)
 		{
+			CenterRectUsingSingleLineHeight(ref cellRect);
 			switch (column)
 			{
 				case MyColumns.Icon:
 					{
-						GUI.DrawTexture(cellRect, s_TestIcons[GetIcon1Index(item)], ScaleMode.ScaleToFit);
+						if (string.IsNullOrEmpty(item.data.Icon))
+                        {
+							GUI.DrawTexture(cellRect, s_TestIcons[0], ScaleMode.ScaleToFit);
+							break;
+                        }
+
+						if (!Icons.ContainsKey(item.data.Icon))
+                        {
+							Icons.Add(item.data.Icon, null);
+							AwtterSdkInstaller.IconsToDownload.Enqueue(item.data.Icon);
+						}
+
+						if (Icons.TryGetValue(item.data.Icon, out Texture tex))
+							GUI.DrawTexture(cellRect, tex != null ? tex : s_TestIcons[0], ScaleMode.ScaleToFit);
 					}
 					break;
 				case MyColumns.Name:
 					{
-						EditorGUI.LabelField(cellRect, item.data.name);
+						args.label = item.data.name;
+						args.rowRect = cellRect;
+						base.RowGUI(args);
 					}
 					break;
 				case MyColumns.Status:
@@ -164,12 +184,11 @@ namespace AwtterSDK.Editor.PackagesTreeView
 					headerContent = new GUIContent("Name"),
 					headerTextAlignment = TextAlignment.Left,
 					sortedAscending = true,
-					sortingArrowAlignment = TextAlignment.Left,
-					width = 150,
+					sortingArrowAlignment = TextAlignment.Center,
+					width = 150, 
 					minWidth = 60,
 					autoResize = false,
-					allowToggleVisibility = false,
-					canSort = false,
+					allowToggleVisibility = false
 				},
 				new MultiColumnHeaderState.Column
 				{

@@ -48,6 +48,10 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2019.4.30f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2019.4.30f1\Editor\Data\Managed\UnityEngine\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
       <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2019.4.30f1\Editor\Data\Managed\UnityEngine\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
@@ -61,16 +65,28 @@
     <Reference Include="UnityEngine.UnityWebRequestModule">
       <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2019.4.30f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2019.4.30f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
       <HintPath>..\..\..\..\..\Program Files\Unity\Hub\Editor\2019.4.30f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Editor\AwtterSdkInstaller.cs" />
-    <Compile Include="Editor\Enums\BaseType.cs" />
     <Compile Include="Editor\Enums\PackageStatus.cs" />
-    <Compile Include="Editor\PackagesTreeView\PackageElement.cs" />
-    <Compile Include="Editor\PackagesTreeView\PackagesView.cs" />
+    <Compile Include="Editor\Installations\BaseInstallation.cs" />
+    <Compile Include="Editor\Installations\DlcInstallation.cs" />
+    <Compile Include="Editor\Installations\PoyomiInstallation.cs" />
+    <Compile Include="Editor\Installations\VrcSdkInstallation.cs" />
+    <Compile Include="Editor\Interfaces\ICheckInstallStatus.cs" />
+    <Compile Include="Editor\Models\BaseModel.cs" />
+    <Compile Include="Editor\Models\DLC.cs" />
+    <Compile Include="Editor\Models\DownloadableContent.cs" />
+    <Compile Include="Editor\Models\Package.cs" />
+    <Compile Include="Editor\AssetsTreeView\AssetElement.cs" />
+    <Compile Include="Editor\AssetsTreeView\AssetsView.cs" />
     <Compile Include="Editor\TreeDataModel\TreeElement.cs" />
     <Compile Include="Editor\TreeDataModel\TreeElementUtility.cs" />
     <Compile Include="Editor\TreeDataModel\TreeModel.cs" />
