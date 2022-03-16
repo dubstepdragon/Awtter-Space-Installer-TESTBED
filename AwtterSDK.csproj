@@ -75,7 +75,6 @@
     <Compile Include="Editor\TreeDataModel\TreeElementUtility.cs" />
     <Compile Include="Editor\TreeDataModel\TreeModel.cs" />
     <Compile Include="Editor\TreeDataModel\TreeViewWithTreeModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

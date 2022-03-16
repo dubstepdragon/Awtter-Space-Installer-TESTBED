@@ -62,21 +62,16 @@ namespace AwtterSDK.Editor.PackagesTreeView
 		public PackagesView(TreeViewState state, MultiColumnHeader multicolumnHeader, TreeModel<PackageElement> model) : base(state, multicolumnHeader, model)
 		{
 			// Custom setup
+			extraSpaceBeforeIconAndLabel = 0f;
 			rowHeight = kRowHeights;
 			columnIndexForTreeFoldouts = 2;
 			showAlternatingRowBackgrounds = true;
 			showBorder = true;
-			customFoldoutYOffset = (kRowHeights - EditorGUIUtility.singleLineHeight) * 0.5f; // center foldout in the row since we also center content. See RowGUI
-			extraSpaceBeforeIconAndLabel = kToggleWidth;
-
 			Reload();
 		}
 
 
-        protected override bool CanStartDrag(CanStartDragArgs args)
-        {
-			return false;
-        }
+        protected override bool CanStartDrag(CanStartDragArgs args) => false;
 
         // Note we We only build the visible rows, only the backend has the full tree information. 
         // The treeview only creates info for the row list.
@@ -86,10 +81,7 @@ namespace AwtterSDK.Editor.PackagesTreeView
 			return rows;
 		}
 
-		int GetIcon1Index(TreeViewItem<PackageElement> item)
-		{
-			return 0;
-		}
+		int GetIcon1Index(TreeViewItem<PackageElement> item) => 0;
 
 		protected override void RowGUI(RowGUIArgs args)
 		{
@@ -103,7 +95,6 @@ namespace AwtterSDK.Editor.PackagesTreeView
 
 		void CellGUI(Rect cellRect, TreeViewItem<PackageElement> item, MyColumns column, ref RowGUIArgs args)
 		{
-			CenterRectUsingSingleLineHeight(ref cellRect);
 			switch (column)
 			{
 				case MyColumns.Icon:
@@ -113,9 +104,7 @@ namespace AwtterSDK.Editor.PackagesTreeView
 					break;
 				case MyColumns.Name:
 					{
-						args.rowRect = cellRect;
-						args.label = item.data.Name;
-						base.RowGUI(args);
+						EditorGUI.LabelField(cellRect, item.data.name);
 					}
 					break;
 				case MyColumns.Status:
@@ -123,43 +112,30 @@ namespace AwtterSDK.Editor.PackagesTreeView
 						args.rowRect = cellRect;
 						var defColor = GUI.color;
 						Rect statusRect = cellRect;
+						cellRect.x += 18f;
 
 						switch (item.data.Status)
                         {
 							case PackageStatus.NotInstalled:
-								statusRect.x += GetContentIndent(item);
 								statusRect.width = 18f;
-								if (statusRect.xMax < cellRect.xMax)
-                                {
-									GUI.color = Color.red;
-									EditorGUI.LabelField(statusRect, "❌");
-									GUI.color = defColor;
-								}
-								args.rowRect = cellRect;
-								args.label = "Not Installed";
-								base.RowGUI(args);
+								GUI.color = Color.red;
+								EditorGUI.LabelField(statusRect, "❌");
+								GUI.color = defColor;
+								EditorGUI.LabelField(cellRect, "Not Installed");
 								break;
 							case PackageStatus.Installed:
-								statusRect.x += GetContentIndent(item);
 								statusRect.width = 18f;
-								if (statusRect.xMax < cellRect.xMax)
-								{
-									GUI.color = Color.green;
-									EditorGUI.LabelField(statusRect, "✔️");
-									GUI.color = defColor;
-								}
-								args.rowRect = cellRect;
-								args.label = "Installed";
-								base.RowGUI(args);
+								GUI.color = Color.green;
+								EditorGUI.LabelField(statusRect, "✔️");
+								GUI.color = defColor;
+								EditorGUI.LabelField(cellRect, "Installed");
 								break;
                         }
 					}
 					break;
 				case MyColumns.Version:
 					{
-						args.rowRect = cellRect;
-						args.label = item.data.Version;
-						base.RowGUI(args);
+						EditorGUI.LabelField(cellRect, item.data.Version);
 					}
 					break;
 			}
@@ -178,7 +154,7 @@ namespace AwtterSDK.Editor.PackagesTreeView
 					sortingArrowAlignment = TextAlignment.Right,
 					width = 30,
 					minWidth = 30,
-					maxWidth = 60,
+					maxWidth = 30,
 					autoResize = false,
 					allowToggleVisibility = true,
 					canSort = false,

@@ -45,7 +45,7 @@ namespace AwtterSDK
         [MenuItem("Awtter SDK/Open Installer")]
         static void Init()
         {
-            _window = (AwtterSdkInstaller)EditorWindow.GetWindow(typeof(AwtterSdkInstaller), false, "Awtter SDK | Installer");
+            _window = (AwtterSdkInstaller)EditorWindow.GetWindowWithRect(typeof(AwtterSdkInstaller), new Rect(0, 0, 525, 208), false, "Awtter SDK | Installer");
             _window.Show();
             CheckPackages = true;
         }
@@ -132,22 +132,6 @@ namespace AwtterSDK
             CheckPackages = false;
         }
 
-        Rect toolbarRect
-        {
-            get { return new Rect(20f, 10f, position.width - 40f, 20f); }
-        }
-
-        Rect packagesTreeViewRect
-        {
-            get { return new Rect(20, 30, position.width - 40, 100f); }
-        }
-
-        Rect bottomToolbarRect
-        {
-            get { return new Rect(20f, 120, position.width - 40f, 80f); }
-        }
-
-
         void OnGUI()
         {
             InitIfNeeded();
@@ -195,17 +179,6 @@ namespace AwtterSDK
             GUILayout.EndHorizontal();
         }
 
-        void CreateMultiLineBox(string[] lines, bool bold = true)
-        {
-            GUILayout.BeginHorizontal("box");
-            foreach(var line in lines)
-            {
-                if (bold) GUILayout.Label(line, EditorStyles.boldLabel);
-                else GUILayout.Label(line);
-            }
-            GUILayout.EndHorizontal();
-        }
-
         void DownloadFile(string url, string progressTitle, string progressInfo)
         {
             string fileName = Path.GetFileName(url);
@@ -231,6 +204,21 @@ namespace AwtterSDK
             {
                 Debug.Log(www.error);
             }
+        }
+
+        Rect toolbarRect
+        {
+            get { return new Rect(20f, 0f, position.width - 40f, 20f); }
+        }
+
+        Rect packagesTreeViewRect
+        {
+            get { return new Rect(20, 30, position.width - 40, 100f); }
+        }
+
+        Rect bottomToolbarRect
+        {
+            get { return new Rect(20f, 135, position.width - 40f, 80f); }
         }
     }
 
