@@ -260,8 +260,6 @@ namespace AwtterSDK
             GUILayout.EndArea();
         }
 
-        int _selectedBase = 0;
-
         void BottomToolBar(Rect rect)
         {
             GUILayout.BeginArea(rect);
@@ -270,22 +268,22 @@ namespace AwtterSDK
                 CreateBox("Install DLCS");
                 for(int x = 0; x < _downloadableContent.Models[BaseType].AvaliableDLC.Count; x++)
                 {
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label(_downloadableContent.Models[BaseType].AvaliableDLC[x].Name);
+                    EditorGUILayout.BeginHorizontal();
+                    EditorGUILayout.LabelField(_downloadableContent.Models[BaseType].AvaliableDLC[x].Name);
                     GUILayout.FlexibleSpace();
                     _downloadableContent.Models[BaseType].AvaliableDLC[x].Install = EditorGUILayout.Toggle(_downloadableContent.Models[BaseType].AvaliableDLC[x].Install);
-                    GUILayout.EndHorizontal();
+                    EditorGUILayout.EndHorizontal();
                 }
             }
             else
             {
                 CreateBox("Installation options");
-                _selectedBase = EditorGUILayout.Popup("Model base", _selectedBase, _downloadableContent.Models.Select(x => x.Name).ToArray());
+                BaseType = EditorGUILayout.Popup("Model base", BaseType, _downloadableContent.Models.Select(x => x.Name).ToArray());
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.BeginVertical();
                 CreateBox("Base");
-                EditorGUILayout.LabelField($"Name {_downloadableContent.Models[_selectedBase].Name}");
+                EditorGUILayout.LabelField($"Name {_downloadableContent.Models[BaseType].Name}");
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.BeginVertical();
                 CreateBox("Avaliable DLCS");
@@ -318,7 +316,7 @@ namespace AwtterSDK
                         }
                     }
                 }
-                DownloadFile(_downloadableContent.Models[BaseType].DownloadLink, "Downloading file", $"Downloading base model {_downloadableContent.Models[BaseType].Name}...");
+                if (!BaseInstalled) DownloadFile(_downloadableContent.Models[BaseType].DownloadLink, "Downloading file", $"Downloading base model {_downloadableContent.Models[BaseType].Name}...");
             }
 
 
@@ -364,17 +362,17 @@ namespace AwtterSDK
 
         Rect toolbarRect
         {
-            get { return new Rect(20f, 0f, position.width - 40f, 20f); }
+            get { return new Rect(5f, 0f, position.width - 5f, 20f); }
         }
 
         Rect packagesTreeViewRect
         {
-            get { return new Rect(20, 30, position.width - 40, 140f); }
+            get { return new Rect(5f, 30, position.width - 5f, 140f); }
         }
 
         Rect bottomToolbarRect
         {
-            get { return new Rect(20f, 175, position.width - 40f, position.height - 160f); }
+            get { return new Rect(5f, 175, position.width - 5f, position.height - 160f); }
         }
     }
 
