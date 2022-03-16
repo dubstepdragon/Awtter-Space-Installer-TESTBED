@@ -16,10 +16,6 @@ namespace AwtterSDK.Editor.AssetsTreeView
 		const float kToggleWidth = 18f;
 		public bool showControls = true;
 
-		static Texture2D[] s_TestIcons =
-		{
-			EditorGUIUtility.FindTexture ("Folder Icon"),
-		};
 
 		enum MyColumns
 		{
@@ -95,7 +91,6 @@ namespace AwtterSDK.Editor.AssetsTreeView
 			}
 		}
 
-		public static Dictionary<string, Texture> Icons = new Dictionary<string, Texture>();
 
 		void CellGUI(Rect cellRect, TreeViewItem<AssetElement> item, MyColumns column, ref RowGUIArgs args)
 		{
@@ -104,20 +99,7 @@ namespace AwtterSDK.Editor.AssetsTreeView
 			{
 				case MyColumns.Icon:
 					{
-						if (string.IsNullOrEmpty(item.data.Icon))
-                        {
-							GUI.DrawTexture(cellRect, s_TestIcons[0], ScaleMode.ScaleToFit);
-							break;
-                        }
-
-						if (!Icons.ContainsKey(item.data.Icon))
-                        {
-							Icons.Add(item.data.Icon, null);
-							AwtterSdkInstaller.IconsToDownload.Enqueue(item.data.Icon);
-						}
-
-						if (Icons.TryGetValue(item.data.Icon, out Texture tex))
-							GUI.DrawTexture(cellRect, tex != null ? tex : s_TestIcons[0], ScaleMode.ScaleToFit);
+						GUI.DrawTexture(cellRect, AwtterSdkInstaller.GetTextureOrDownload(item.data.Icon), ScaleMode.ScaleToFit);
 					}
 					break;
 				case MyColumns.Name:

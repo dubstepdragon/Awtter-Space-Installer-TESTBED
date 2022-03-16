@@ -15,6 +15,7 @@ using AwtterSDK.Editor.Interfaces;
 using AwtterSDK.Editor.Installations;
 using System.Net;
 using AwtterSDK.Editor.AssetsTreeView;
+using System.Linq;
 
 namespace AwtterSDK
 {
@@ -31,7 +32,9 @@ namespace AwtterSDK
         public static bool BaseInstalled;
         public static int BaseType;
 
-        public static Queue<string> IconsToDownload = new Queue<string>();
+        public static Texture DefaultTexture;
+        public static Queue<string> TexturesToDownload = new Queue<string>();
+        public static Dictionary<string, Texture> CachedTextures = new Dictionary<string, Texture>();
 
         public static bool CheckPackages = true;
         static AwtterSdkInstaller _window;
@@ -59,7 +62,7 @@ namespace AwtterSDK
                     Version = "2.9.42",
                     IconLink = "https://shadedoes3d.com/static/core/img/thumb/Otter.jpg",
                     DownloadLink = "file:///C:/Users/Kille/Desktop/Awtter_v2.9.42_Unity.unitypackage",
-                    Dependencies = new string[] { "vrcsdk", "poyiomi" },
+                    Dependencies = new string[] { "vrcsdk", "poiyomi" },
                     AvaliableDLC = new List<DLC>()
                     {
                         new DLC()
@@ -67,7 +70,7 @@ namespace AwtterSDK
                             Name = "Test DLC",
                             DownloadLink = "<DLC AA>",
                             IconLink = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Windows_Settings_app_icon.png",
-                            Dependencies = new string [] { "vrcsdk", "poyiomi", "awtter" }
+                            Dependencies = new string [] { "vrcsdk", "poiyomi", "awtter" }
                         }
                     }
                 },
@@ -78,14 +81,14 @@ namespace AwtterSDK
                     Version = "2.9.42",
                     IconLink = "https://shadedoes3d.com/static/core/img/thumb/Otter.jpg",
                     DownloadLink = "file:///C:/Users/Kille/Desktop/Awtter_v2.9.42_Unity.unitypackage",
-                    Dependencies = new string[] { "vrcsdk", "poyiomi" },
+                    Dependencies = new string[] { "vrcsdk", "poiyomi" },
                     AvaliableDLC = new List<DLC>()
                     {
                         new DLC()
                         {
                             Name = "Test DLC",
                             DownloadLink = "<DLC AA>",
-                            Dependencies = new string [] { "vrcsdk", "poyiomi", "awdder" }
+                            Dependencies = new string [] { "vrcsdk", "poiyomi", "awdder" }
                         }
                     }
                 }
@@ -149,6 +152,20 @@ namespace AwtterSDK
             return elements;
         }
 
+        public static Texture GetTextureOrDownload(string url)
+        {
+            if (DefaultTexture == null) DefaultTexture = EditorGUIUtility.FindTexture("Folder Icon");
+            if (string.IsNullOrEmpty(url)) return DefaultTexture;
+
+            if (!CachedTextures.ContainsKey(url))
+            {
+                CachedTextures.Add(url, null);
+                AwtterSdkInstaller.TexturesToDownload.Enqueue(url);
+            }
+
+            return CachedTextures[url] ?? DefaultTexture;
+        }
+
         [MenuItem("Awtter SDK/Open Installer")]
         static void Init()
         {
@@ -198,18 +215,14 @@ namespace AwtterSDK
                 m_TreeView.treeModel.m_Data[_downloadableContent.Models[x].ViewID].Status = modelInstalled ? PackageStatus.Installed : PackageStatus.NotInstalled;
                 m_TreeView.treeModel.m_Data[_downloadableContent.Models[x].ViewID].Version = modelInstalled ? _installationCheckers["basemodel"].InstalledVersion ?? "-" : "-";
             }
-            foreach (var model in _downloadableContent.Models)
-            {
-
-            }
 
             foreach (var package in _downloadableContent.Packages)
             {
                 if (_installationCheckers.TryGetValue(package.ShortName, out ICheckInstallStatus installStatus))
                 {
-                    _installationCheckers[package.ShortName].Check();
-                    m_TreeView.treeModel.m_Data[package.ViewID].Status = _installationCheckers[package.ShortName].IsInstalled ? PackageStatus.Installed : PackageStatus.NotInstalled;
-                    m_TreeView.treeModel.m_Data[package.ViewID].Version = _installationCheckers[package.ShortName].InstalledVersion ?? "-";
+                    installStatus.Check();
+                    m_TreeView.treeModel.m_Data[package.ViewID].Status = installStatus.IsInstalled ? PackageStatus.Installed : PackageStatus.NotInstalled;
+                    m_TreeView.treeModel.m_Data[package.ViewID].Version = installStatus.InstalledVersion ?? "-";
                 }
             }
 
@@ -218,9 +231,9 @@ namespace AwtterSDK
 
         void OnGUI()
         {
-            if (IconsToDownload.Count != 0)
+            if (TexturesToDownload.Count != 0)
             {
-                var link = IconsToDownload.Dequeue();
+                var link = TexturesToDownload.Dequeue();
    
                 using (WebClient client = new WebClient())
                 {
@@ -228,7 +241,7 @@ namespace AwtterSDK
                     Texture2D tex = new Texture2D(2, 2);
                     tex.LoadImage(data);
 
-                    AssetsView.Icons[link] = tex;
+                    CachedTextures[link] = tex;
                 }
             }
             InitIfNeeded();
@@ -247,14 +260,14 @@ namespace AwtterSDK
             GUILayout.EndArea();
         }
 
+        int _selectedBase = 0;
+
         void BottomToolBar(Rect rect)
         {
             GUILayout.BeginArea(rect);
-            CreateBox("Installation options");
-            EditorGUILayout.HelpBox("Information ee", MessageType.Info);
             if (BaseInstalled)
             {
-                CreateBox("Avaliable DLCS");
+                CreateBox("Install DLCS");
                 for(int x = 0; x < _downloadableContent.Models[BaseType].AvaliableDLC.Count; x++)
                 {
                     GUILayout.BeginHorizontal();
@@ -266,20 +279,46 @@ namespace AwtterSDK
             }
             else
             {
-                CreateBox("Avaliable Base Models");
-                for (int x = 0; x < _downloadableContent.Models.Count; x++)
+                CreateBox("Installation options");
+                _selectedBase = EditorGUILayout.Popup("Model base", _selectedBase, _downloadableContent.Models.Select(x => x.Name).ToArray());
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.BeginVertical();
+                CreateBox("Base");
+                EditorGUILayout.LabelField($"Name {_downloadableContent.Models[_selectedBase].Name}");
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.BeginVertical();
+                CreateBox("Avaliable DLCS");
+                for(int x = 0; x < _downloadableContent.Models[BaseType].AvaliableDLC.Count; x++)
                 {
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label(_downloadableContent.Models[x].Name);
-                    GUILayout.FlexibleSpace();
-                    _downloadableContent.Models[x].Install = EditorGUILayout.Toggle(_downloadableContent.Models[x].Install);
+                    GUILayout.Label(_downloadableContent.Models[BaseType].AvaliableDLC[x].Name);
+                    _downloadableContent.Models[BaseType].AvaliableDLC[x].Install = EditorGUILayout.Toggle(_downloadableContent.Models[BaseType].AvaliableDLC[x].Install);
                     GUILayout.EndHorizontal();
                 }
+                EditorGUILayout.EndVertical();
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.EndHorizontal();
             }
 
             if (GUILayout.Button("Install"))
             {
-
+                foreach(var dependency in _downloadableContent.Models[BaseType].Dependencies)
+                {
+                    if (_installationCheckers.TryGetValue(dependency, out ICheckInstallStatus status) && !status.IsInstalled)
+                    {
+                        var missingDependency = _downloadableContent.Packages.FirstOrDefault(p => p.ShortName == dependency);
+                        if (missingDependency == null)
+                        {
+                            Debug.LogError($"Not found {dependency} dependency for base {_downloadableContent.Models[BaseType].Name}.");
+                        }
+                        else
+                        {
+                            DownloadFile(missingDependency.DownloadLink, $"Downloading file", $"Downloading {dependency}...");
+                        }
+                    }
+                }
+                DownloadFile(_downloadableContent.Models[BaseType].DownloadLink, "Downloading file", $"Downloading base model {_downloadableContent.Models[BaseType].Name}...");
             }
 
 
@@ -289,11 +328,11 @@ namespace AwtterSDK
 
         void CreateBox(string text)
         {
-            GUILayout.BeginHorizontal("box");
+            EditorGUILayout.BeginHorizontal("box");
             GUILayout.FlexibleSpace();
-            GUILayout.Label(text, EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(text, EditorStyles.boldLabel);
             GUILayout.FlexibleSpace();
-            GUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
         }
 
         void DownloadFile(string url, string progressTitle, string progressInfo)
