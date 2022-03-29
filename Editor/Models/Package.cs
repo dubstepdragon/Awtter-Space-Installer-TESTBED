@@ -1,14 +1,19 @@
-﻿namespace AwtterSDK.Editor.Models
+﻿using System;
+
+namespace AwtterSDK.Editor.Models
 {
+    [Serializable]
     public class Package
     {
-        public int ViewID { get; set; }
-        public bool Install { get; set; }
-        public string Name { get; set; }
-        public string ShortName { get; set; }
-        public string IconLink { get; set; }
-        public string Version { get; set; }
-        public bool AutoDetect { get; set; } = true;
-        public string DownloadLink { get; set; }
+        [NonSerialized]
+        public int ViewID;
+        [NonSerialized]
+        public bool Install;
+        public string Name;
+        public string ShortName;
+        public string IconLink;
+        public string Version;
+        public bool AutoDetect = true;
+        public string DownloadLink;
     }
 }

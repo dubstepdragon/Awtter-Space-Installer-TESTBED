@@ -114,23 +114,24 @@ namespace AwtterSDK.Editor.AssetsTreeView
 						args.rowRect = cellRect;
 						var defColor = GUI.color;
 						Rect statusRect = cellRect;
-						cellRect.x += 18f;
+						cellRect.x += 25f;
 
 						switch (item.data.Status)
                         {
+							case PackageStatus.None:
 							case PackageStatus.NotInstalled:
-								statusRect.width = 18f;
+								statusRect.width = 25f;
 								GUI.color = Color.red;
 								EditorGUI.LabelField(statusRect, "❌");
 								GUI.color = defColor;
-								EditorGUI.LabelField(cellRect, "Not Installed");
+								EditorGUI.LabelField(cellRect, "        Not Installed");
 								break;
 							case PackageStatus.Installed:
-								statusRect.width = 18f;
+								statusRect.width = 25f;
 								GUI.color = Color.green;
 								EditorGUI.LabelField(statusRect, "✔️");
 								GUI.color = defColor;
-								EditorGUI.LabelField(cellRect, "Installed");
+								EditorGUI.LabelField(cellRect, "        Installed");
 								break;
                         }
 					}

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace AwtterSDK.Editor.Models
 {
+    [Serializable]
     internal class BaseModel
     {
-        public int ViewID { get; set; }
-        public bool Install { get; set; }
-        public string Name { get; set; }
-        public string ShortName { get; set; }
-        public string Version { get; set; }
-        public string IconLink { get; set; }
-        public string DownloadLink { get; set; }
-        public string[] Dependencies { get; set; } = new string[0];
-        public List<DLC> AvaliableDLC { get; set; } = new List<DLC>();
+        [NonSerialized]
+        public int ViewID;
+        [NonSerialized]
+        public bool Install;
+        public string Name;
+        public string ShortName;
+        public string Version;
+        public string IconLink;
+        public string DownloadLink;
+        public string[] Dependencies = new string[0];
+        public List<DLC> AvaliableDLC = new List<DLC>();
     }
 }

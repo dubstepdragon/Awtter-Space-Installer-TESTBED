@@ -29,6 +29,7 @@ namespace AwtterSDK
 
     public class AwtterSdkInstaller : EditorWindow
     {
+        public static bool LoggedIn;
         public static bool BaseInstalled;
         public static int BaseType;
 
@@ -51,7 +52,8 @@ namespace AwtterSDK
             { "basemodel", new BaseInstallation() },
         };
 
-        DownloadableContent _downloadableContent = new DownloadableContent()
+        DownloadableContent _downloadableContent = null;
+        DownloadableContent _downloadableContentTemplate = new DownloadableContent()
         {
             Models = new List<BaseModel>()
             {
@@ -88,7 +90,7 @@ namespace AwtterSDK
                         {
                             Name = "Test DLC",
                             DownloadLink = "<DLC AA>",
-                            Dependencies = new string [] { "vrcsdk", "poiyomi", "awdder" }
+                            Dependencies = new string [] { "vrcsdk", "poiyomi", "awdeer" }
                         }
                     }
                 }
@@ -115,8 +117,20 @@ namespace AwtterSDK
             }
         };
 
+
+        [MenuItem("Awtter SDK/Open Installer")]
+        static void Init()
+        {
+            //_window = (AwtterSdkInstaller)EditorWindow.GetWindowWithRect(typeof(AwtterSdkInstaller), new Rect(0, 0, 525, 248), false, "Awtter SDK | Installer");
+            _window = (AwtterSdkInstaller)EditorWindow.GetWindow(typeof(AwtterSdkInstaller), false, "Awtter SDK | Installer");
+            _window.Show();
+            CheckPackages = true;
+        }
+
         internal List<AssetElement> CreateView()
         {
+            if (_downloadableContent == null) return new List<AssetElement>();
+
             List<AssetElement> elements = new List<AssetElement>()
             {
                 new AssetElement(string.Empty, string.Empty, -1, 0),
@@ -164,15 +178,6 @@ namespace AwtterSDK
             }
 
             return CachedTextures[url] ?? DefaultTexture;
-        }
-
-        [MenuItem("Awtter SDK/Open Installer")]
-        static void Init()
-        {
-            //_window = (AwtterSdkInstaller)EditorWindow.GetWindowWithRect(typeof(AwtterSdkInstaller), new Rect(0, 0, 525, 248), false, "Awtter SDK | Installer");
-            _window = (AwtterSdkInstaller)EditorWindow.GetWindow(typeof(AwtterSdkInstaller), false, "Awtter SDK | Installer");
-            _window.Show();
-            CheckPackages = true;
         }
 
         void InitIfNeeded()
@@ -229,8 +234,42 @@ namespace AwtterSDK
             CheckPackages = false;
         }
 
+        string username, password;
+
+        void Login()
+        {
+            if (!File.Exists("Assets/downloadableContent.json"))
+                File.WriteAllText("Assets/downloadableContent.json", JsonUtility.ToJson(_downloadableContentTemplate, true));
+
+            _downloadableContent = JsonUtility.FromJson<DownloadableContent>(File.ReadAllText("Assets/downloadableContent.json"));
+            LoggedIn = true;
+        }
+
+        void Logout()
+        {
+            LoggedIn = false;
+        }
+
         void OnGUI()
         {
+            if (!LoggedIn)
+            {
+                GUILayout.Space(150);
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                GUILayout.BeginVertical("Account", "window", GUILayout.Height(120), GUILayout.Width(300));
+                GUI.enabled = false;
+                username = EditorGUILayout.TextField("Email", username);
+                password = EditorGUILayout.PasswordField("Password", password);
+                GUI.enabled = true;
+                if (GUILayout.Button("Login")) Login();
+                if (GUILayout.Button("Register")) Application.OpenURL("https://shadedoes3d.com");
+                GUILayout.EndVertical();
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
+                return;
+            }
+
             if (TexturesToDownload.Count != 0)
             {
                 var link = TexturesToDownload.Dequeue();
@@ -249,13 +288,15 @@ namespace AwtterSDK
             TopToolBar(toolbarRect);
             m_TreeView.OnGUI(packagesTreeViewRect);
             BottomToolBar(bottomToolbarRect);
-            
         }
-
 
         void TopToolBar(Rect rect)
         {
             GUILayout.BeginArea(rect);
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Logout")) Logout();
+            EditorGUILayout.EndHorizontal();
             CreateBox("Installed assets");
             GUILayout.EndArea();
         }
@@ -279,23 +320,24 @@ namespace AwtterSDK
             {
                 CreateBox("Installation options");
                 BaseType = EditorGUILayout.Popup("Model base", BaseType, _downloadableContent.Models.Select(x => x.Name).ToArray());
-
                 EditorGUILayout.BeginHorizontal();
+
                 EditorGUILayout.BeginVertical();
                 CreateBox("Base");
-                EditorGUILayout.LabelField($"Name {_downloadableContent.Models[BaseType].Name}");
+                GUILayout.Label($"Name {_downloadableContent.Models[BaseType].Name}");
                 EditorGUILayout.EndVertical();
+
                 EditorGUILayout.BeginVertical();
                 CreateBox("Avaliable DLCS");
-                for(int x = 0; x < _downloadableContent.Models[BaseType].AvaliableDLC.Count; x++)
+                for (int x = 0; x < _downloadableContent.Models[BaseType].AvaliableDLC.Count; x++)
                 {
-                    GUILayout.BeginHorizontal();
+                    EditorGUILayout.BeginHorizontal();
                     GUILayout.Label(_downloadableContent.Models[BaseType].AvaliableDLC[x].Name);
+                    GUILayout.FlexibleSpace();
                     _downloadableContent.Models[BaseType].AvaliableDLC[x].Install = EditorGUILayout.Toggle(_downloadableContent.Models[BaseType].AvaliableDLC[x].Install);
-                    GUILayout.EndHorizontal();
+                    EditorGUILayout.EndHorizontal();
                 }
                 EditorGUILayout.EndVertical();
-                GUILayout.FlexibleSpace();
                 EditorGUILayout.EndHorizontal();
             }
 
@@ -324,12 +366,12 @@ namespace AwtterSDK
             GUILayout.EndArea();
         }
 
-        void CreateBox(string text)
+        void CreateBox(string text, bool flexible = true)
         {
             EditorGUILayout.BeginHorizontal("box");
-            GUILayout.FlexibleSpace();
-            EditorGUILayout.LabelField(text, EditorStyles.boldLabel);
-            GUILayout.FlexibleSpace();
+            if (flexible) GUILayout.FlexibleSpace();
+            GUILayout.Label(text, EditorStyles.boldLabel);
+            if (flexible) GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
         }
 
@@ -362,17 +404,17 @@ namespace AwtterSDK
 
         Rect toolbarRect
         {
-            get { return new Rect(5f, 0f, position.width - 5f, 20f); }
+            get { return new Rect(0f, 0f, position.width, 25f); }
         }
 
         Rect packagesTreeViewRect
         {
-            get { return new Rect(5f, 30, position.width - 5f, 140f); }
+            get { return new Rect(0f, 30f, position.width, 140f); }
         }
 
         Rect bottomToolbarRect
         {
-            get { return new Rect(5f, 175, position.width - 5f, position.height - 160f); }
+            get { return new Rect(0f, 175f, position.width, position.height - 160f); }
         }
     }
 
