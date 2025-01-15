@@ -4,10 +4,10 @@
 # Awtter SDK
 
 <p align="center">
-<b><a href="https://dubstepdragon.github.io/AwtterSDK_dubby">Add to VCC</a></b>
+<b><a href="https://asdk.awtterspace.com/">Add to VCC</a></b>
 </p>
 
 
 Tool made for managing AwtterSpace content in one menu.
 
-Hosted under [VRChat Tools](https://github.com/dubstepdragon)
+Hosted under [The Awtterverse](https://github.com/TheAwtterverse)
