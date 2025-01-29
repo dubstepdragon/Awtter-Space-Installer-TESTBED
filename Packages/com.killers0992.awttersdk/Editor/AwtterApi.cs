@@ -13,9 +13,11 @@
 
     public class AwtterApi
     {
+        public static readonly string BASE_URL = "awtterspace.com";
+        
         public static IEnumerator GetProducts(bool isFirst = true)
         {
-            using (var www = UnityWebRequest.Get("https://awtterspace.com/api/products"))
+            using (var www = UnityWebRequest.Get($"https://{BASE_URL}/api/products"))
             {
                 www.SetRequestHeader("Authorization", $"Token {TokenCache.Token}");
 
@@ -36,7 +38,7 @@
 
         public static IEnumerator GetConfig()
         {
-            using (var www = UnityWebRequest.Get("https://awtterspace.com/api/config"))
+            using (var www = UnityWebRequest.Get($"https://{BASE_URL}/api/config"))
             {
                 yield return www.SendWebRequest();
 
@@ -53,7 +55,7 @@
 
         public static IEnumerator GetCurrentUser()
         {
-            using (var www = UnityWebRequest.Get("https://awtterspace.com/api/users/me"))
+            using (var www = UnityWebRequest.Get($"https://{BASE_URL}/api/users/me"))
             {
                 www.SetRequestHeader("Authorization", $"Token {TokenCache.Token}");
 
@@ -72,7 +74,7 @@
 
         public static IEnumerator GetToolbox()
         {
-            using (var www = UnityWebRequest.Get("https://awtterspace.com/api/products/toolbox"))
+            using (var www = UnityWebRequest.Get($"https://{BASE_URL}/api/products/toolbox"))
             {
                 www.SetRequestHeader("Authorization", $"Token {TokenCache.Token}");
 
@@ -98,7 +100,7 @@
 
         public static IEnumerator GetPatreon()
         {
-            using (var www = UnityWebRequest.Get("https://awtterspace.com/api/patreon/me"))
+            using (var www = UnityWebRequest.Get($"https://{BASE_URL}/api/patreon/me"))
             {
                 www.SetRequestHeader("Authorization", $"Token {TokenCache.Token}");
 

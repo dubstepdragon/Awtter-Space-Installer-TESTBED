@@ -1,4 +1,4 @@
-﻿namespace AwtterSDK.Editor.Pages
+namespace AwtterSDK.Editor.Pages
 {
     using UnityEditor;
 
@@ -58,7 +58,7 @@
             GUI.enabled = true;
 
             if (GUILayout.Button("Register")) 
-                Application.OpenURL("https://awtterspace.com/accounts/register/");
+                Application.OpenURL($"https://{AwtterApi.BASE_URL}/accounts/register/");
 
             GUILayout.EndVertical();
             GUILayout.FlexibleSpace();
@@ -73,7 +73,7 @@
 
             if (first) yield break;
 
-            using (var www = UnityWebRequest.Post("https://awtterspace.com/api/auth", new Dictionary<string, string>()
+            using (var www = UnityWebRequest.Post($"https://{AwtterApi.BASE_URL}/api/auth", new Dictionary<string, string>()
             {
                 { "username", Username },
                 { "password", Password }
