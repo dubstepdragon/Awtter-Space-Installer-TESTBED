@@ -9,10 +9,10 @@
     },
     "description":"Tool for managing content from AwtterSpace.",
     "infoLink":{
-        "url":"https://github.com/dubstepdragon/AwtterSDK_dubby",
+        "url":"https://github.com/TheAwtterverse/AwtterSDK",
         "text":"View on GitHub"
     },
-    "bannerUrl":"https://github.com/dubstepdragon/AwtterSDK_dubby/blob/main/Website/banner.png",
+    "bannerUrl":"https://github.com/TheAwtterverse/AwtterSDK/blob/master/Website/banner.png",
     "githubRepos":[
         "TheAwtterverse/AwtterSDK"
     ]
