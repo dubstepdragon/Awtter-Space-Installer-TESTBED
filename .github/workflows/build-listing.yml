@@ -1,12 +1,10 @@
 name: Build Repo Listing
 
 on: 
-  workflow_run:
-    workflows: [Build Release]
-    types:
-      - completed
-  release:
-     types: [published, created, edited, unpublished, deleted, released]
+  workflow_dispatch:
+  push:
+    branches: main
+    paths: source.json
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -54,13 +52,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
  
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
         
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ${{env.listPublishDirectory}}
           
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
