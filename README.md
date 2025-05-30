@@ -11,3 +11,12 @@
 Tool made for managing AwtterSpace content in one menu.
 
 Hosted under [The Awtterverse](https://github.com/TheAwtterverse)
+
+<!-- SECRET FOR ALPHA TESTERS -->
+<!--
+
+ALPHA TEST LINK
+
+https://dubstepdragon.github.io/AwtterSDK-TESTBED/index.json
+
+-->
