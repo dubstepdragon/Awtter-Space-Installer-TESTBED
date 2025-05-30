@@ -101,8 +101,8 @@ namespace AwtterSDK.Editor.Pages
             GUI.DrawTexture(new Rect(0, 0, pos.size.x, pos.size.y), WindowBackground, ScaleMode.StretchToFill);
             LinkButtons();
             if (AwtterSdkImage != null)
-                GUI.DrawTexture(new Rect(0, 78, pos.size.x, 180), AwtterSdkImage, ScaleMode.ScaleToFit);
-            GUILayout.Space(170);
+                GUI.DrawTexture(new Rect(0, 78, pos.size.x, 180), AwtterSdkImage, ScaleMode.ScaleToFit, true, 1.6842105F);
+            GUILayout.Space(185);
 
             if (AwtterSdkInstaller.LoggedInUser != null) 
                 LoggedIn();
