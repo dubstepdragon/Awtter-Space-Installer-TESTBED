@@ -19,7 +19,8 @@ namespace AwtterSDK.Editor.Models.API
                         _id = id;
                 }
 
-                return _id.Value;
+                if (_id != null) return _id.Value;
+                return -1;
             }
         }
 
