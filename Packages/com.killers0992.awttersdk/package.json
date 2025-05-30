@@ -1,16 +1,16 @@
 {
-  "name": "com.killers0992.awttersdk",
-  "displayName": "Awtter SDK - TESTBED",
+  "name": "com.killers0992.awttersdk",  
+  "displayName": "Awtter SDK",
   "version": "1.2.27",
   "description": "Tool for managing content from AwtterSpace.",
-  "unity": "2019.4",
-  "vpmDependencies": {
-    "dev.dubby.awttermerger": "4.x.x"
+  "unity" : "2019.4",
+   "vpmDependencies": {
+      "dev.dubby.awttermerger": "4.x.x"
   },
   "author": {
-    "name": "Killers0992",
-    "email": "killers0992@gmail.com",
-    "url": "https://killers.dev"
+    "name": "DubstepDragon",
+    "email": "dubstep.dragon@dubby.dev",
+    "url": "https://dubby.dev"
   },
   "dependencies": {
     "com.unity.postprocessing": "3.1.1",
