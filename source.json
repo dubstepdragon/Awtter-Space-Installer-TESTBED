@@ -1,7 +1,7 @@
 {
-    "name":"Awtter SDK",
+    "name":"Awtter SDK - TESTBED",
     "id":"com.killers0992.awttersdk",
-    "url":"https://TheAwtterverse.github.io/AwtterSDK/index.json",
+    "url":"https://dubstepdragon.github.io/AwtterSDK-TESTBED/",
     "author":{
         "email":"dubstep.dragon@dubby.dev",
         "name":"Dubby",
@@ -18,3 +18,4 @@
         "dubstepdragon/AwtterMerger-TESTBED"
     ]
 }
+
