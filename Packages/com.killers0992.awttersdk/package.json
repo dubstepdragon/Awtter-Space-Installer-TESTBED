@@ -5,7 +5,6 @@
   "description": "Tool for managing content from AwtterSpace.",
   "unity": "2019.4",
   "vpmDependencies": {
-    "com.vrcfury.vrcfury": "1.x.x",
     "dev.dubby.awttermerger": "4.x.x"
   },
   "author": {
