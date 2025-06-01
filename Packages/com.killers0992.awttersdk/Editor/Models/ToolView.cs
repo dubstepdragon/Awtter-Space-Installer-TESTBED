@@ -12,7 +12,8 @@ namespace Assets.Awtter_SDK.Editor.Models
         public static List<string> InstallByDefault = new List<string>()
         {
             "poiyomi",
-            "vrcfury"
+            "vrcfury",
+            "Jerry's Template FT"
         };
 
         private bool? _install;
