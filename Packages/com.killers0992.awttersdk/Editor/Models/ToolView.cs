@@ -13,7 +13,7 @@ namespace Assets.Awtter_SDK.Editor.Models
         {
             "poiyomi",
             "vrcfury",
-            "Jerry's Template FT",
+            "jerry'stemplateft",
             "awttermerger"
         };
 
