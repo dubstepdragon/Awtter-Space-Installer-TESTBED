@@ -1,7 +1,7 @@
 {
   "name": "com.killers0992.awttersdk",  
   "displayName": "Awtter SDK",
-  "version": "1.2.3",
+  "version": "1.2.30",
   "description": "Tool for managing content from AwtterSpace.",
   "unity" : "2019.4",
    "vpmDependencies": {
