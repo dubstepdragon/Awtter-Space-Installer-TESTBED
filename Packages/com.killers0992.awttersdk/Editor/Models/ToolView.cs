@@ -13,7 +13,8 @@ namespace Assets.Awtter_SDK.Editor.Models
         {
             "poiyomi",
             "vrcfury",
-            "Jerry's Template FT"
+            "Jerry's Template FT",
+            "awttermerger"
         };
 
         private bool? _install;
