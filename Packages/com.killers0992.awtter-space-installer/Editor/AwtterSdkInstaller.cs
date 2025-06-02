@@ -65,7 +65,7 @@
         }
 
 
-        [MenuItem("Awtter tools/ASDK control panel")]
+        [MenuItem("ASI Tools/ASDK control panel")]
         static void Init()
         {
             _window = (AwtterSdkInstaller)EditorWindow.GetWindow(typeof(AwtterSdkInstaller), false, "Awtter SDK");

@@ -47,7 +47,7 @@
         public static int PictureResolutionWidth = 4096;
         public static int PictureResolutionHeight = 2048;
 
-        [MenuItem("Awtter tools/Camera tool")]
+        [MenuItem("ASI Tools/Camera tool")]
         static void Init()
         {
             CameraToolsMenu window = (CameraToolsMenu)EditorWindow.GetWindow(typeof(CameraToolsMenu), false, "Camera tool");
