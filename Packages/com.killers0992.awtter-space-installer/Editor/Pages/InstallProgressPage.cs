@@ -12,18 +12,18 @@ namespace AwtterSDK.Editor.Pages
 {
     public class InstallProgressPage : IPage
     {
-        private AwtterSdkInstaller _main;
+        private AwtterSpaceInstaller _main;
         private Vector2 _progressScroll = Vector2.zero;
 
         private GUIStyle CustomLabel;
 
-        public void Load(AwtterSdkInstaller main)
+        public void Load(AwtterSpaceInstaller main)
         {
             _main = main;
             CustomLabel = new GUIStyle(GUI.skin.label);
             CustomLabel.richText = true;
             CustomLabel.alignment = TextAnchor.MiddleCenter;
-            EditorCoroutineUtility.StartCoroutine(DownloadFile(AwtterSdkInstaller.FilesToInstall), this);
+            EditorCoroutineUtility.StartCoroutine(DownloadFile(AwtterSpaceInstaller.FilesToInstall), this);
         }
 
         public void DrawGUI(Rect pos)
@@ -32,7 +32,7 @@ namespace AwtterSDK.Editor.Pages
             GUILayout.Label("Installation progress", CustomLabel);
 
             _progressScroll = GUILayout.BeginScrollView(_progressScroll, false, true);
-            foreach (var file in AwtterSdkInstaller.FilesToInstall)
+            foreach (var file in AwtterSpaceInstaller.FilesToInstall)
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Box(TextureCache.GetTextureOrDownload(file.Icon), GUILayout.Height(45), GUILayout.Width(45));
@@ -90,7 +90,7 @@ namespace AwtterSDK.Editor.Pages
 
                 if (file.IsBaseModel)
                 {
-                    AwtterSdkInstaller.InstalledPackages.BaseModel = new InstalledPackageModel()
+                    AwtterSpaceInstaller.InstalledPackages.BaseModel = new InstalledPackageModel()
                     {
                         Id = file.Id,
                         Version = file.Version
@@ -98,9 +98,9 @@ namespace AwtterSDK.Editor.Pages
                 }
                 else if (file.IsDLC)
                 {
-                    if (AwtterSdkInstaller.InstalledPackages.Dlcs.ContainsKey(file.Id)) break;
+                    if (AwtterSpaceInstaller.InstalledPackages.Dlcs.ContainsKey(file.Id)) break;
 
-                    AwtterSdkInstaller.InstalledPackages.Dlcs.Add(file.Id, new InstalledPackageModel()
+                    AwtterSpaceInstaller.InstalledPackages.Dlcs.Add(file.Id, new InstalledPackageModel()
                     {
                         Id = file.Id,
                         Version = file.Version
@@ -108,7 +108,7 @@ namespace AwtterSDK.Editor.Pages
                 }
             }
             EditorUtility.ClearProgressBar();
-            AwtterSdkInstaller.IsInstalling = false;
+            AwtterSpaceInstaller.IsInstalling = false;
             yield break;
         }
 

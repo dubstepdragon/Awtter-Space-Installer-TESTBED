@@ -15,7 +15,7 @@ namespace AwtterSDK.Editor.Pages
     {
         private long _directorySize = 0;
 
-        public void Load(AwtterSdkInstaller main)
+        public void Load(AwtterSpaceInstaller main)
         {
             _directorySize = Utils.DirectorySize(new System.IO.DirectoryInfo(FilesCache.CachePath));
         }
@@ -39,7 +39,7 @@ namespace AwtterSDK.Editor.Pages
             EditorGUILayout.BeginVertical();
             if (GUILayout.Button($"Go back"))
             {
-                AwtterSdkInstaller.ViewSettings = false;
+                AwtterSpaceInstaller.ViewSettings = false;
             }
             EditorGUILayout.EndVertical();
         }

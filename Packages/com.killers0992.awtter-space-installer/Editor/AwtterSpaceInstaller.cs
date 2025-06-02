@@ -24,13 +24,13 @@
     {
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
-            AwtterSdkInstaller.Refresh = true;
+            AwtterSpaceInstaller.Refresh = true;
         }
     }
 
-    public class AwtterSdkInstaller : EditorWindow
+    public class AwtterSpaceInstaller : EditorWindow
     {
-        private static AwtterSdkInstaller _window;
+        private static AwtterSpaceInstaller _window;
         private static string _installedPackagesPath => Path.Combine(Application.dataPath, "AwtterInstalledPackages.json");
 
         private static bool? _showOnStartup;
@@ -50,7 +50,7 @@
             }
         }
 
-        static AwtterSdkInstaller()
+        static AwtterSpaceInstaller()
         {
             EditorApplication.update -= OnEditorUpdate;
             EditorApplication.update += OnEditorUpdate;
@@ -65,10 +65,10 @@
         }
 
 
-        [MenuItem("ASI Tools/ASDK control panel")]
+        [MenuItem("Awtter Space Tools/Installer control panel")]
         static void Init()
         {
-            _window = (AwtterSdkInstaller)EditorWindow.GetWindow(typeof(AwtterSdkInstaller), false, "Awtter SDK");
+            _window = (AwtterSpaceInstaller)EditorWindow.GetWindow(typeof(AwtterSpaceInstaller), false, "Awtter Space Installer");
             _window.minSize = new Vector2(320f, 640f);
 
             _window.Show();
@@ -270,6 +270,7 @@
         private AwboiSplashButtons _settings;
         public AwboiSplashButtons Settings
         {
+            
             get
             {
                 if (_settings == null)

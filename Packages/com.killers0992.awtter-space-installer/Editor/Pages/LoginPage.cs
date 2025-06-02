@@ -26,9 +26,9 @@ namespace AwtterSDK.Editor.Pages
 
         public string ErrorBox = null;
 
-        private AwtterSdkInstaller _main;
+        private AwtterSpaceInstaller _main;
 
-        public void Load(AwtterSdkInstaller main)
+        public void Load(AwtterSpaceInstaller main)
         {
             _main = main;
         }
@@ -68,7 +68,7 @@ namespace AwtterSDK.Editor.Pages
         {
             yield return AwtterApi.GetProducts();
 
-            if (AwtterSdkInstaller.LoggedIn)
+            if (AwtterSpaceInstaller.LoggedIn)
                 yield break;
 
             if (first) yield break;
@@ -98,7 +98,7 @@ namespace AwtterSDK.Editor.Pages
 
                         Debug.Log("[<color=orange>Awtter SDK</color>] Logged in!");
                         yield return AwtterApi.GetProducts(false);
-                        AwtterSdkInstaller.LoggedIn = true;
+                        AwtterSpaceInstaller.LoggedIn = true;
                         break;
                     // Bad response.
                     case 404:

@@ -40,11 +40,11 @@
 
                 if (!int.TryParse(id, out int fileId)) continue;
 
-                if (AwtterSdkInstaller.InstalledPackages.BaseModel != null &&
-                    AwtterSdkInstaller.InstalledPackages.BaseModel.Id == fileId && findBase)
+                if (AwtterSpaceInstaller.InstalledPackages.BaseModel != null &&
+                    AwtterSpaceInstaller.InstalledPackages.BaseModel.Id == fileId && findBase)
                     return file;
 
-                if (AwtterSdkInstaller.InstalledPackages.Dlcs.ContainsKey(fileId) && !findBase) return file;
+                if (AwtterSpaceInstaller.InstalledPackages.Dlcs.ContainsKey(fileId) && !findBase) return file;
             }
 
             return null;

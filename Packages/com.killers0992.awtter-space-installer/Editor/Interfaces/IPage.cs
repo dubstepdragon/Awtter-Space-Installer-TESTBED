@@ -9,7 +9,7 @@ namespace AwtterSDK.Editor.Interfaces
 {
     public interface IPage
     {
-        void Load(AwtterSdkInstaller main);
+        void Load(AwtterSpaceInstaller main);
         void DrawGUI(Rect pos);
         void Reset();
     }

@@ -14,7 +14,7 @@ namespace AwtterSDK.Editor.Models
         public bool IsProp { get; set; }
         public bool IsDlc { get; set; }
         public bool IsPatreon { get; set; }
-        public bool IsInstalled => AwtterSdkInstaller.InstalledPackages != null && AwtterSdkInstaller.InstalledPackages.Dlcs.ContainsKey(Id);
+        public bool IsInstalled => AwtterSpaceInstaller.InstalledPackages != null && AwtterSpaceInstaller.InstalledPackages.Dlcs.ContainsKey(Id);
 
         private Version _newVersion;
         private Version _currentVersion;

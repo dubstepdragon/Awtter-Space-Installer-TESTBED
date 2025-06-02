@@ -10,11 +10,11 @@ namespace AwtterSDK.Editor.Pages
 {
     public class AddPackagesPage : IPage
     {
-        private AwtterSdkInstaller _main;
+        private AwtterSpaceInstaller _main;
         public GUIStyle CustomButton;
         public Vector2 Scroll = Vector2.zero;
 
-        public void Load(AwtterSdkInstaller main)
+        public void Load(AwtterSpaceInstaller main)
         {
             _main = main;
 
@@ -29,11 +29,11 @@ namespace AwtterSDK.Editor.Pages
             Utils.CreateBox("Additional packages");
             GUILayout.Space(15);
             Scroll = GUILayout.BeginScrollView(Scroll);
-            if (AwtterSdkInstaller.AvaliableDlcs.Any(x => !x.IsProp && x.IsDlc && !x.IsPatreon))
+            if (AwtterSpaceInstaller.AvaliableDlcs.Any(x => !x.IsProp && x.IsDlc && !x.IsPatreon))
             {
                 Utils.CreateBox("DLCS");
                 GUILayout.Space(5);
-                foreach(var dlc in AwtterSdkInstaller.AvaliableDlcs.Where(x => x.IsDlc && !x.IsPatreon))
+                foreach(var dlc in AwtterSpaceInstaller.AvaliableDlcs.Where(x => x.IsDlc && !x.IsPatreon))
                 {
                     GUILayout.BeginHorizontal();
                     GUILayout.Box(TextureCache.GetTextureOrDownload(dlc.Icon), GUILayout.Height(32), GUILayout.Width(32));
@@ -48,11 +48,11 @@ namespace AwtterSDK.Editor.Pages
                 GUILayout.Space(5);
             }
 
-            if (AwtterSdkInstaller.AvaliableDlcs.Any(x => x.IsProp && !x.IsPatreon))
+            if (AwtterSpaceInstaller.AvaliableDlcs.Any(x => x.IsProp && !x.IsPatreon))
             {
                 Utils.CreateBox("Props");
                 GUILayout.Space(5);
-                foreach (var prop in AwtterSdkInstaller.AvaliableDlcs.Where(x => x.IsProp && !x.IsPatreon ))
+                foreach (var prop in AwtterSpaceInstaller.AvaliableDlcs.Where(x => x.IsProp && !x.IsPatreon ))
                 {
                     GUILayout.BeginHorizontal();
                     GUILayout.Box(TextureCache.GetTextureOrDownload(prop.Icon), GUILayout.Height(32), GUILayout.Width(32));
@@ -67,11 +67,11 @@ namespace AwtterSDK.Editor.Pages
                 GUILayout.Space(5);
             }
 
-            if (AwtterSdkInstaller.AvaliableTools.Any(x => !x.IsInstalled))
+            if (AwtterSpaceInstaller.AvaliableTools.Any(x => !x.IsInstalled))
             {
                 Utils.CreateBox("Tools");
                 GUILayout.Space(5);
-                foreach (var tool in AwtterSdkInstaller.AvaliableTools.Where(x => !x.IsInstalled))
+                foreach (var tool in AwtterSpaceInstaller.AvaliableTools.Where(x => !x.IsInstalled))
                 {
                     GUILayout.BeginHorizontal();
                     GUILayout.Box(TextureCache.GetTextureOrDownload(tool.Icon), GUILayout.Height(32), GUILayout.Width(32));
@@ -91,13 +91,13 @@ namespace AwtterSDK.Editor.Pages
             GUILayout.BeginHorizontal();
             GUI.color = Color.red;
             if (GUILayout.Button("Go back", _main.Shared.WindowCustomButton3, GUILayout.MinHeight(27)))
-                AwtterSdkInstaller.ViewAdditionalPackages = false;
+                AwtterSpaceInstaller.ViewAdditionalPackages = false;
             GUI.color = Color.white;
 
             GUILayout.Space(10);
             GUI.color = Color.green;
             if (GUILayout.Button("Run SDK Installer", _main.Shared.WindowCustomButton3, GUILayout.MinHeight(27)))
-                AwtterSdkInstaller.IsInstalling = true;
+                AwtterSpaceInstaller.IsInstalling = true;
             GUI.color = Color.white;
             GUILayout.EndHorizontal();
         }

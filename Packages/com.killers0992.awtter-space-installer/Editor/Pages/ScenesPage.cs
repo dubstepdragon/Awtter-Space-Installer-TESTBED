@@ -12,13 +12,13 @@ namespace AwtterSDK.Editor.Pages
 {
     public class ScenesPage : IPage
     {
-        private AwtterSdkInstaller _main;
+        private AwtterSpaceInstaller _main;
         private Vector2 _scenesScroll = Vector2.zero;
         private List<SceneInfo> _scenes = new List<SceneInfo>();
 
         public static bool DoRefreshScenes;
 
-        public void Load(AwtterSdkInstaller main)
+        public void Load(AwtterSpaceInstaller main)
         {
             _main = main;
             RefreshScenes();
@@ -56,11 +56,11 @@ namespace AwtterSDK.Editor.Pages
 
             EditorGUILayout.EndScrollView();
 
-            if (AwtterSdkInstaller.CurrentBase.IsOutdated || AwtterSdkInstaller.AvaliableDlcs.Any(x => x.IsOutdated))
+            if (AwtterSpaceInstaller.CurrentBase.IsOutdated || AwtterSpaceInstaller.AvaliableDlcs.Any(x => x.IsOutdated))
             {
                 EditorGUILayout.HelpBox(String.Concat(
-                    AwtterSdkInstaller.CurrentBase.IsOutdated ? $"Your base is outdated!" + Environment.NewLine : String.Empty,
-                    AwtterSdkInstaller.AvaliableDlcs.Any(x => x.IsOutdated) ? "Your DLCS are outdated!" : String.Empty), MessageType.Warning);
+                    AwtterSpaceInstaller.CurrentBase.IsOutdated ? $"Your base is outdated!" + Environment.NewLine : String.Empty,
+                    AwtterSpaceInstaller.AvaliableDlcs.Any(x => x.IsOutdated) ? "Your DLCS are outdated!" : String.Empty), MessageType.Warning);
             }
             else
                 GUILayout.Space(5);
@@ -69,12 +69,12 @@ namespace AwtterSDK.Editor.Pages
             GUI.color = ModelSelectionPage.OrangeColor;
             if (GUILayout.Button($"Manage packages", _main.Shared.WindowCustomButton3))
             {
-                AwtterSdkInstaller.ViewManagePackages = !AwtterSdkInstaller.ViewManagePackages;
+                AwtterSpaceInstaller.ViewManagePackages = !AwtterSpaceInstaller.ViewManagePackages;
             }
             GUI.color = Color.red;
             if (GUILayout.Button("Reset", _main.Shared.WindowCustomButton3))
             {
-                AwtterSdkInstaller.ViewReset = true;
+                AwtterSpaceInstaller.ViewReset = true;
             }
             GUI.color = Color.white;
             EditorGUILayout.EndVertical();

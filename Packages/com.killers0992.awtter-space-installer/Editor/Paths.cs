@@ -16,6 +16,6 @@ namespace AwtterSDK.Editor
                 return _packagesPath;
             }
         }
-        public static string MainPath => "Packages\\com.killers0992.awttersdk";
+        public static string MainPath => "Packages\\com.killers0992.awtter-space-installer";
     }
 }

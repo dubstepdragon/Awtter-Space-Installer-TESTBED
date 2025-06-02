@@ -47,9 +47,9 @@
         public Vector2 ScrollPosition = Vector2.zero;
         public GUIStyle CustomLabel;
 
-        private AwtterSdkInstaller _main;
+        private AwtterSpaceInstaller _main;
 
-        public void Load(AwtterSdkInstaller main)
+        public void Load(AwtterSpaceInstaller main)
         {
             _main = main;
             CustomLabel = new GUIStyle(GUI.skin.label);
@@ -61,16 +61,16 @@
             GUILayout.FlexibleSpace();
             GUILayout.BeginVertical("Terms of service", "window", GUILayout.Height(250));
 
-            if (AwtterSdkInstaller.RemoteConfig != null)
+            if (AwtterSpaceInstaller.RemoteConfig != null)
             {
-                if (TosAccepted && AwtterSdkInstaller.RemoteConfig.Tos.Version > TosVersion)
+                if (TosAccepted && AwtterSpaceInstaller.RemoteConfig.Tos.Version > TosVersion)
                     TosAccepted = false;
             }
 
             if (_tosLines == null)
             {
-                if (AwtterSdkInstaller.RemoteConfig != null)
-                    _tosLines = AwtterSdkInstaller.RemoteConfig.Tos.Text.Split(
+                if (AwtterSpaceInstaller.RemoteConfig != null)
+                    _tosLines = AwtterSpaceInstaller.RemoteConfig.Tos.Text.Split(
                         new string[] { Environment.NewLine },
                         StringSplitOptions.None
                     );
@@ -99,7 +99,7 @@
             
             if (GUILayout.Button("Accept TOS"))
             {
-                TosVersion = AwtterSdkInstaller.RemoteConfig.Tos.Version;
+                TosVersion = AwtterSpaceInstaller.RemoteConfig.Tos.Version;
                 TosAccepted = true;
             }
 

@@ -47,7 +47,8 @@
         public static int PictureResolutionWidth = 4096;
         public static int PictureResolutionHeight = 2048;
 
-        [MenuItem("ASI Tools/Camera tool")]
+        //TODO: Add Camera tool back when updated from Fooma
+        //[MenuItem("Awtter Space Tools/Camera tool")]
         static void Init()
         {
             CameraToolsMenu window = (CameraToolsMenu)EditorWindow.GetWindow(typeof(CameraToolsMenu), false, "Camera tool");

@@ -22,7 +22,7 @@ namespace AWBOI.SplashScreen
 
         public override void OnInspectorGUI()
         {
-            if (AwtterSdkInstaller.LoggedInUser != null && !AwtterSdkInstaller.LoggedInUser.Admin) return;
+            //if (AwtterSdkInstaller.LoggedInUser != null && !AwtterSdkInstaller.LoggedInUser.Admin) return;
 
             serializedObject.Update();
 

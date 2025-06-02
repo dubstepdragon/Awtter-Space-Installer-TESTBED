@@ -51,14 +51,14 @@ namespace AwtterSDK.Editor.Models.API
         {
             get
             {
-                if (AwtterSdkInstaller.InstalledPackages == null) return false;
+                if (AwtterSpaceInstaller.InstalledPackages == null) return false;
 
                 if (IsBaseModel)
-                    return AwtterSdkInstaller.InstalledPackages?.BaseModel?.Id == Id;
+                    return AwtterSpaceInstaller.InstalledPackages?.BaseModel?.Id == Id;
                 else if (IsTool)
-                    return AwtterSdkInstaller.InstalledPackages.Tools.ContainsKey(NameSimple);
+                    return AwtterSpaceInstaller.InstalledPackages.Tools.ContainsKey(NameSimple);
                 else
-                    return AwtterSdkInstaller.InstalledPackages.Dlcs.ContainsKey(Id);
+                    return AwtterSpaceInstaller.InstalledPackages.Dlcs.ContainsKey(Id);
             }
         }
 
@@ -66,10 +66,10 @@ namespace AwtterSDK.Editor.Models.API
         {
             if (IsInstalled)
             {
-                var baseModel = AwtterSdkInstaller.InstalledPackages?.BaseModel;
+                var baseModel = AwtterSpaceInstaller.InstalledPackages?.BaseModel;
                 if (baseModel == null) return null;
 
-                AwtterSdkInstaller.InstalledPackages.BaseModel.File = this;
+                AwtterSpaceInstaller.InstalledPackages.BaseModel.File = this;
                 return baseModel;
             }
             return null;
@@ -79,10 +79,10 @@ namespace AwtterSDK.Editor.Models.API
         {
             if (IsInstalled)
             {
-                var dlc = AwtterSdkInstaller.InstalledPackages.Dlcs[Id];
+                var dlc = AwtterSpaceInstaller.InstalledPackages.Dlcs[Id];
                 if (dlc == null) return null;
 
-                AwtterSdkInstaller.InstalledPackages.Dlcs[Id].File = this;
+                AwtterSpaceInstaller.InstalledPackages.Dlcs[Id].File = this;
                 return dlc;
             }
             return null;
@@ -94,11 +94,11 @@ namespace AwtterSDK.Editor.Models.API
             {
                 var name = Name.ToLower().Replace(" ", "");
 
-                var tool = AwtterSdkInstaller.InstalledPackages.Tools[name];
+                var tool = AwtterSpaceInstaller.InstalledPackages.Tools[name];
                 if (tool == null) return null;
 
-                AwtterSdkInstaller.InstalledPackages.Tools[name].Id = tool.Id;
-                AwtterSdkInstaller.InstalledPackages.Tools[name].File = this;
+                AwtterSpaceInstaller.InstalledPackages.Tools[name].Id = tool.Id;
+                AwtterSpaceInstaller.InstalledPackages.Tools[name].File = this;
                 return tool;
             }
             return null;

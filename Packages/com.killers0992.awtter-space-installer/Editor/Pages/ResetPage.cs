@@ -24,9 +24,9 @@ namespace AwtterSDK.Editor.Pages
             }
         }
 
-        private AwtterSdkInstaller _main;
+        private AwtterSpaceInstaller _main;
 
-        public void Load(AwtterSdkInstaller main)
+        public void Load(AwtterSpaceInstaller main)
         {
             _main = main;
         }
@@ -71,14 +71,14 @@ namespace AwtterSDK.Editor.Pages
 
                 AssetDatabase.Refresh();
 
-                AwtterSdkInstaller.ViewReset = !AwtterSdkInstaller.ViewReset;
+                AwtterSpaceInstaller.ViewReset = !AwtterSpaceInstaller.ViewReset;
             }
             GUI.color = Color.red;
             GUILayout.Space(50);
 
             if (GUILayout.Button($"BACK", _main.Shared.WindowCustomButton3, GUILayout.MinWidth(50), GUILayout.MinHeight(32)))
             {
-                AwtterSdkInstaller.ViewReset = !AwtterSdkInstaller.ViewReset;
+                AwtterSpaceInstaller.ViewReset = !AwtterSpaceInstaller.ViewReset;
             }
             GUILayout.FlexibleSpace();
             GUI.color = Color.white;

@@ -12,7 +12,7 @@ namespace AwtterSDK.Editor.Pages
 {
     public class PatreonBenefitsPage : IPage
     {
-        private AwtterSdkInstaller _main;
+        private AwtterSpaceInstaller _main;
         private Texture2D _awtterInboxImage;
 
         public Texture2D AwtterInboxImage
@@ -31,7 +31,7 @@ namespace AwtterSDK.Editor.Pages
 
         public Vector2 Scroll = Vector2.zero;
 
-        public void Load(AwtterSdkInstaller main)
+        public void Load(AwtterSpaceInstaller main)
         {
             _main = main;
 
@@ -51,7 +51,7 @@ namespace AwtterSDK.Editor.Pages
             Utils.CreateBox("Patreon items");
             GUILayout.Space(15);
          
-            if (AwtterSdkInstaller.Patreon == null || !AwtterSdkInstaller.Patreon.Active)
+            if (AwtterSpaceInstaller.Patreon == null || !AwtterSpaceInstaller.Patreon.Active)
             {
                 Utils.CreateBox("Looks like there's nothing here, are you a Patreon ?");
                 if (AwtterInboxImage != null)
@@ -62,17 +62,17 @@ namespace AwtterSDK.Editor.Pages
             }
             
             Scroll = GUILayout.BeginScrollView(Scroll);
-            if (AwtterSdkInstaller.AvaliableBases.Any(x => x.IsPatreon))
+            if (AwtterSpaceInstaller.AvaliableBases.Any(x => x.IsPatreon))
             {
                 Utils.CreateBox("BASES");
                 GUILayout.Space(5);
-                foreach (var baseModel in AwtterSdkInstaller.AvaliableBases.Where(x => x.IsPatreon))
+                foreach (var baseModel in AwtterSpaceInstaller.AvaliableBases.Where(x => x.IsPatreon))
                 {
                     GUILayout.BeginHorizontal();
                     GUILayout.Box(TextureCache.GetTextureOrDownload(baseModel.Icon), GUILayout.Height(32), GUILayout.Width(32));
-                    if (GUILayout.Button(baseModel.Name, AwtterSdkInstaller.CurrentBase?.Id == baseModel.Id ? CustomButton2 : CustomButton, GUILayout.Height(32)))
+                    if (GUILayout.Button(baseModel.Name, AwtterSpaceInstaller.CurrentBase?.Id == baseModel.Id ? CustomButton2 : CustomButton, GUILayout.Height(32)))
                     {
-                        AwtterSdkInstaller.CurrentBase = AwtterSdkInstaller.CurrentBase?.Id == baseModel.Id ? null : baseModel;
+                        AwtterSpaceInstaller.CurrentBase = AwtterSpaceInstaller.CurrentBase?.Id == baseModel.Id ? null : baseModel;
                         _main.UpdateAwtterPackages();
                     }
 
@@ -80,11 +80,11 @@ namespace AwtterSDK.Editor.Pages
                 }
                 GUILayout.Space(5);
             }
-            if (AwtterSdkInstaller.AvaliableDlcs.Any(x => !x.IsProp && x.IsDlc && x.IsPatreon))
+            if (AwtterSpaceInstaller.AvaliableDlcs.Any(x => !x.IsProp && x.IsDlc && x.IsPatreon))
             {
                 Utils.CreateBox("DLCS");
                 GUILayout.Space(5);
-                foreach (var dlc in AwtterSdkInstaller.AvaliableDlcs.Where(x => x.IsDlc && x.IsPatreon))
+                foreach (var dlc in AwtterSpaceInstaller.AvaliableDlcs.Where(x => x.IsDlc && x.IsPatreon))
                 {
                     GUILayout.BeginHorizontal();
                     GUILayout.Box(TextureCache.GetTextureOrDownload(dlc.Icon), GUILayout.Height(32), GUILayout.Width(32));
@@ -98,11 +98,11 @@ namespace AwtterSDK.Editor.Pages
                 }
                 GUILayout.Space(5);
             }
-            if (AwtterSdkInstaller.AvaliableDlcs.Any(x => x.IsProp && x.IsPatreon))
+            if (AwtterSpaceInstaller.AvaliableDlcs.Any(x => x.IsProp && x.IsPatreon))
             {
                 Utils.CreateBox("Props");
                 GUILayout.Space(5);
-                foreach (var prop in AwtterSdkInstaller.AvaliableDlcs.Where(x => x.IsProp && x.IsPatreon))
+                foreach (var prop in AwtterSpaceInstaller.AvaliableDlcs.Where(x => x.IsProp && x.IsPatreon))
                 {
                     GUILayout.BeginHorizontal();
                     GUILayout.Box(TextureCache.GetTextureOrDownload(prop.Icon), GUILayout.Height(32), GUILayout.Width(32));
@@ -126,13 +126,13 @@ namespace AwtterSDK.Editor.Pages
             GUILayout.BeginHorizontal();
             GUI.color = Color.red;
             if (GUILayout.Button("Go back", _main.Shared.WindowCustomButton3, GUILayout.MinHeight(27)))
-                AwtterSdkInstaller.ViewPatreonItems = false;
+                AwtterSpaceInstaller.ViewPatreonItems = false;
             GUI.color = Color.white;
 
             GUILayout.Space(10);
             GUI.color = Color.green;
             if (GUILayout.Button("Run SDK Installer", _main.Shared.WindowCustomButton3, GUILayout.MinHeight(27)))
-                AwtterSdkInstaller.IsInstalling = true;
+                AwtterSpaceInstaller.IsInstalling = true;
             GUI.color = Color.white;
             GUILayout.EndHorizontal();
         }

@@ -29,6 +29,6 @@ namespace AwtterSDK.Editor.Models
                 return _newVersion.CompareTo(_currentVersion) > 0;
             }
         }
-        public bool IsInstalled => AwtterSdkInstaller.InstalledPackages?.BaseModel?.Id == Id;
+        public bool IsInstalled => AwtterSpaceInstaller.InstalledPackages?.BaseModel?.Id == Id;
     }
 }

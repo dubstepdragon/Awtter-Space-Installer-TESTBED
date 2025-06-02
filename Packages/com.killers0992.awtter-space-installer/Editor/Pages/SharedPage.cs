@@ -11,7 +11,7 @@ namespace AwtterSDK.Editor.Pages
         private Texture2D _windowBackground;
         private Texture2D _awtterSdkImage;
 
-        internal AwtterSdkInstaller _main;
+        internal AwtterSpaceInstaller _main;
 
         public Texture2D WindowBackground
         {
@@ -40,7 +40,7 @@ namespace AwtterSDK.Editor.Pages
         public GUIStyle WindowCustomButton3;
         public GUIStyle WindowCustomButton4;
 
-        public SharedPage(AwtterSdkInstaller main)
+        public SharedPage(AwtterSpaceInstaller main)
         {
             _main = main;
             Load();
@@ -104,21 +104,21 @@ namespace AwtterSDK.Editor.Pages
                 GUI.DrawTexture(new Rect(0, 78, pos.size.x, 180), AwtterSdkImage, ScaleMode.ScaleToFit, true, 1.6842105F);
             GUILayout.Space(185);
 
-            if (AwtterSdkInstaller.LoggedInUser != null) 
+            if (AwtterSpaceInstaller.LoggedInUser != null) 
                 LoggedIn();
         }
 
         void LoggedIn()
         {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Label($"Logged in as {AwtterSdkInstaller.LoggedInUser?.Username ?? "-|-"} [{AwtterSdkInstaller.LoggedInUser?.Id}]!");
+            GUILayout.Label($"Logged in as {AwtterSpaceInstaller.LoggedInUser?.Username ?? "-|-"} [{AwtterSpaceInstaller.LoggedInUser?.Id}]!");
             GUILayout.FlexibleSpace();
             if (GUILayout.Button($"Settings", _main.Shared.WindowCustomButton))
-                AwtterSdkInstaller.ViewSettings = !AwtterSdkInstaller.ViewSettings;
+                AwtterSpaceInstaller.ViewSettings = !AwtterSpaceInstaller.ViewSettings;
             if (GUILayout.Button("Logout", _main.Shared.WindowCustomButton, GUILayout.MinHeight(16)))
             { 
                 TokenCache.Token = string.Empty;
-                AwtterSdkInstaller.LoggedIn = false;
+                AwtterSpaceInstaller.LoggedIn = false;
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -190,10 +190,10 @@ namespace AwtterSDK.Editor.Pages
         {
             EditorGUILayout.BeginHorizontal(GUILayout.MaxHeight(32));
             GUILayout.Label("Show window on startup");
-            GUI.color = AwtterSdkInstaller.ShowOnStartup ? Color.green : Color.red;
-            if (GUILayout.Button(AwtterSdkInstaller.ShowOnStartup ? $"Enabled" : "Disabled", WindowCustomButton, GUILayout.MaxWidth(64)))
+            GUI.color = AwtterSpaceInstaller.ShowOnStartup ? Color.green : Color.red;
+            if (GUILayout.Button(AwtterSpaceInstaller.ShowOnStartup ? $"Enabled" : "Disabled", WindowCustomButton, GUILayout.MaxWidth(64)))
             {
-                AwtterSdkInstaller.ShowOnStartup = !AwtterSdkInstaller.ShowOnStartup;
+                AwtterSpaceInstaller.ShowOnStartup = !AwtterSpaceInstaller.ShowOnStartup;
             }
             GUI.color = Color.white;
             EditorGUILayout.EndHorizontal();

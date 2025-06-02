@@ -38,7 +38,7 @@ namespace Assets.Awtter_SDK.Editor.Models
         public string Version { get; set; }
         public string InstalledVersion { get; set; }
         public string DownloadUrl { get; set; }
-        public bool IsInstalled => AwtterSdkInstaller.InstalledPackages != null && AwtterSdkInstaller.InstalledPackages.Tools.ContainsKey(SimpleName);
+        public bool IsInstalled => AwtterSpaceInstaller.InstalledPackages != null && AwtterSpaceInstaller.InstalledPackages.Tools.ContainsKey(SimpleName);
 
         private Version _newVersion;
         private Version _currentVersion;

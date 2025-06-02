@@ -25,12 +25,12 @@
 
                 if (www.responseCode != 200) yield break;
 
-                AwtterSdkInstaller.Products = JsonConvert.DeserializeObject<ProductsModel>(www.downloadHandler.text);
+                AwtterSpaceInstaller.Products = JsonConvert.DeserializeObject<ProductsModel>(www.downloadHandler.text);
 
-                if (!AwtterSdkInstaller.LoggedIn && isFirst)
+                if (!AwtterSpaceInstaller.LoggedIn && isFirst)
                 {
                     Debug.Log("[<color=orange>Awtter SDK</color>] Logged in using cache!");
-                    AwtterSdkInstaller.LoggedIn = true;
+                    AwtterSpaceInstaller.LoggedIn = true;
                 }
             }
             yield break;
@@ -47,7 +47,7 @@
                 var okResponse = JsonConvert.DeserializeObject<ConfigOkResponseModel>(www.downloadHandler.text);
 
                 if (okResponse.Status == StatusType.Success)
-                    AwtterSdkInstaller.RemoteConfig = okResponse.Data;
+                    AwtterSpaceInstaller.RemoteConfig = okResponse.Data;
             }
             yield break;
         }
@@ -67,7 +67,7 @@
 
                 if (model.Status != StatusType.Success) yield break;
 
-                AwtterSdkInstaller.LoggedInUser = model.Data;
+                AwtterSpaceInstaller.LoggedInUser = model.Data;
             }
             yield break;
         }
@@ -93,7 +93,7 @@
 
                 model.Data.Files.RemoveAll(x => x.Name == "7zip");
 
-                AwtterSdkInstaller.Toolbox = model.Data;
+                AwtterSpaceInstaller.Toolbox = model.Data;
             }
             yield break;
         }
@@ -112,8 +112,8 @@
 
                 if (model.Status != StatusType.Success) yield break;
 
-                AwtterSdkInstaller.Patreon = model.Data;
-                AwtterSdkInstaller.RefreshAwtterPackages = true;
+                AwtterSpaceInstaller.Patreon = model.Data;
+                AwtterSpaceInstaller.RefreshAwtterPackages = true;
             }
             yield break;
         }
