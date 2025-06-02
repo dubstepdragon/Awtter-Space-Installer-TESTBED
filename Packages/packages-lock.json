@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "com.killers0992.awttersdk": {
-      "version": "file:com.killers0992.awttersdk",
+    "com.killers0992.awtter-space-installer": {
+      "version": "file:com.killers0992.awtter-space-installer",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
@@ -291,18 +291,6 @@
         "com.unity.xr.management": "4.4.0"
       },
       "url": "https://packages.unity.com"
-    },
-    "com.vrcfury.temp": {
-      "version": "file:com.vrcfury.temp",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
-    "com.vrcfury.vrcfury": {
-      "version": "file:com.vrcfury.vrcfury",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
     },
     "com.vrchat.avatars": {
       "version": "file:com.vrchat.avatars",

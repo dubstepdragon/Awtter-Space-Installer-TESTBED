@@ -1,7 +1,7 @@
 {
-    "name":"Awtter SDK And Awtter Merger - TESTBED",
-    "id":"com.killers0992.awttersdk",
-    "url":"https://dubstepdragon.github.io/AwtterSDK-TESTBED/index.json",
+    "name":"Awtter Space Installer",
+    "id":"com.killers0992.awtter-space-installer",
+    "url":"https://TheAwtterverse.github.io/Awtter-Space-Installer/index.json",
     "author":{
         "email":"dubstep.dragon@dubby.dev",
         "name":"Dubby",
@@ -9,12 +9,11 @@
     },
     "description":"TESTBED Tool for managing content from AwtterSpace.",
     "infoLink":{
-        "url":"https://github.com/dubstepdragon/AwtterSDK-TESTBED",
+        "url":"https://github.com/TheAwtterverse/Awtter-Space-Installer",
         "text":"View on GitHub"
     },
-    "bannerUrl":"",
+    "bannerUrl":"https://github.com/TheAwtterverse/Awtter-Space-Installer/blob/master/Website/banner.png",
     "githubRepos":[
-        "dubstepdragon/AwtterMerger-TESTBED",
-        "dubstepdragon/AwtterSDK-TESTBED"
+        "TheAwtterverse/Awtter-Space-Installer",
     ]
 }
