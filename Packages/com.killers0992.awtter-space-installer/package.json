@@ -1,6 +1,7 @@
 {
-  "name": "com.killers0992.awtter-space-installer",
-  "displayName": "Awtter Space Installer",
+
+  "name": "com.killers0992.awtter-space-installer",  
+  "displayName": "Awtter Space Installer - TESTBED",
   "version": "1.2.34",
   "description": "Tool for managing content from AwtterSpace.",
   "unity": "2019.4",
