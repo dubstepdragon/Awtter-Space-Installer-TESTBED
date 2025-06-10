@@ -9,7 +9,8 @@ namespace AwtterSDK.Editor.Models
     {
         public static Dictionary<string, ICheckInstallStatus> CheckInstallStatuses = new Dictionary<string, ICheckInstallStatus>()
         {
-            { "poiyomi", new PoyomiInstallation() }
+            { "poiyomi", new PoyomiInstallation() },
+            { "vrcfury", new VRCFuryInstallation() }
         };
 
         public InstalledPackageModel BaseModel { get; set; }
