@@ -1,7 +1,7 @@
 {
-    "name":"Awtter Space Installer - TESTBED",
+    "name":"Awtter Space Installer",
     "id":"com.killers0992.awtter-space-installer",
-    "url":"https://TheAwtterverse.github.io/Awtter-Space-Installer-TESTBED/index.json",
+    "url":"https://TheAwtterverse.github.io/Awtter-Space-Installer/index.json",
     "author":{
         "email":"dubstep.dragon@dubby.dev",
         "name":"Dubby",
@@ -9,11 +9,11 @@
     },
     "description":"Tool for managing content from AwtterSpace.",
     "infoLink":{
-        "url":"https://github.com/TheAwtterverse/Awtter-Space-Installer-TESTBED",
+        "url":"https://github.com/TheAwtterverse/Awtter-Space-Installer",
         "text":"View on GitHub"
     },
     "bannerUrl":"https://github.com/TheAwtterverse/Awtter-Space-Installer/blob/master/Website/banner.png",
     "githubRepos":[
-        "dubstepdragon/Awtter-Space-Installer-TESTBED",
+        "TheAwtterverse/Awtter-Space-Installer"
     ]
 }
