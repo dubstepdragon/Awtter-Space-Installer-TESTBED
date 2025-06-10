@@ -1,5 +1,8 @@
 ﻿using Assets.Awtter_SDK.Editor.Models;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.WSA;
+using VRC.PackageManagement.Core.Types.Packages;
 
 namespace AwtterSDK.Editor.Models.API
 {
@@ -52,9 +55,10 @@ namespace AwtterSDK.Editor.Models.API
             get
             {
                 if (AwtterSpaceInstaller.InstalledPackages == null) return false;
-
+                
                 if (IsBaseModel)
                     return AwtterSpaceInstaller.InstalledPackages?.BaseModel?.Id == Id;
+                
                 else if (IsTool)
                     return AwtterSpaceInstaller.InstalledPackages.Tools.ContainsKey(NameSimple);
                 else
@@ -93,10 +97,10 @@ namespace AwtterSDK.Editor.Models.API
             if (IsInstalled)
             {
                 var name = Name.ToLower().Replace(" ", "");
-
-                var tool = AwtterSpaceInstaller.InstalledPackages.Tools[name];
+                
+                AwtterSpaceInstaller.InstalledPackages.Tools.TryGetValue(name, out InstalledPackageModel tool);
                 if (tool == null) return null;
-
+                
                 AwtterSpaceInstaller.InstalledPackages.Tools[name].Id = tool.Id;
                 AwtterSpaceInstaller.InstalledPackages.Tools[name].File = this;
                 return tool;

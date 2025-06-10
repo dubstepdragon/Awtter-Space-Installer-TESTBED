@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using VRC.PackageManagement.Core.Types.Packages;
 
 namespace AwtterSDK.Editor
 {
@@ -53,6 +55,20 @@ namespace AwtterSDK.Editor
             }
             return string.Format("{0:n1}{1}", number, suffixes[counter]);
         }
+        
+        public static bool CheckVPMPackage(string packageName, out VPMProjectManifest.VPMPackageInfoMinimal foundPackageInfo)
+        {
+            string projectFolder = Directory.GetCurrentDirectory();
+            VPMProjectManifest manifest = VPMProjectManifest.Load(projectFolder);
+            if (manifest.dependencies.Keys.Contains(packageName))
+            {
+                foundPackageInfo = manifest.dependencies[packageName];
+                return true;
+            }
+            
+            foundPackageInfo = null;
+            return false;
+        }
 
         public static void CreateBox(string text, bool flexible = true)
         {
@@ -71,5 +87,6 @@ namespace AwtterSDK.Editor
             if (flexible) GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
         }
+        
     }
 }

@@ -21,7 +21,18 @@ namespace AwtterSDK.Editor.Installations
 
         public void Check()
         {
+            
+            _isInstalled = Utils.CheckVPMPackage("com.poiyomi.toon", out var infoMinimal);
+         
+             if (_isInstalled)
+             {
+                 Version.TryParse(infoMinimal.version, out _version);
+                 return;
+             }
+             
+             
             _isInstalled = Directory.Exists("Assets/_PoiyomiShaders");
+            
 
             if (_isInstalled)
             {
