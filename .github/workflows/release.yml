@@ -3,7 +3,7 @@ name: Build Release
 on: 
   workflow_dispatch:
   push:
-    branches: [ "${{ MAIN_BRANCH_NAME }}" ]
+    branches: betaMain
     paths: source.json
 
 jobs:
