@@ -3,7 +3,7 @@ name: Build Repo Listing
 on: 
   workflow_dispatch:
   push:
-    branches: ${{ vars.MAIN_BRANCH_NAME }}
+    branches: [ "${{ MAIN_BRANCH_NAME }}" ]
     paths: source.json
   workflow_run:
     workflows: [Build Release]
