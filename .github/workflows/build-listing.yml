@@ -5,7 +5,6 @@ on:
   push:
     branches: master
     paths: 
-      - "**/package.json"
       - "source.json"
   workflow_run:
     workflows: [Build Release]

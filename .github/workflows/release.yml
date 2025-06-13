@@ -6,7 +6,6 @@ on:
     branches: master
     paths: 
       - "**/package.json"
-      - "source.json"
       
 jobs:
 
