@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: master
-    paths: source.json
   workflow_run:
     workflows: [Build Release]
     types:
