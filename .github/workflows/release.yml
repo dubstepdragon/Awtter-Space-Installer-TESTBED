@@ -4,8 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: master
-    paths: Packages/com.killers0992.awtter-space-installer/package.json
-
+    paths: 
+      - "**/package.json"
+      - "source.json"
+      
 jobs:
 
   # Validate Repository Configuration
