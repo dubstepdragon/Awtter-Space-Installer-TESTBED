@@ -4,8 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: master
-    paths: source.json
-
+    paths: 
+      - "**/package.json"
+      - "source.json"
+      
 jobs:
 
   # Validate Repository Configuration
