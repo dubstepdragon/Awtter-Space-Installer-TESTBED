@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: master
+    paths: Packages/com.killers0992.awtter-space-installer/package.json
   workflow_run:
     workflows: [Build Release]
     types:
