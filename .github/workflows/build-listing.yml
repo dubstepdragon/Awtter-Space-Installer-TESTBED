@@ -3,7 +3,7 @@ name: Build Repo Listing
 on: 
   workflow_dispatch:
   push:
-    branches: master
+    branches: main
     paths: 
       - "source.json"
   workflow_run:
