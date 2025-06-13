@@ -83,6 +83,8 @@ jobs:
       - name: Make Release
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
         with:
+          make_latest: ${{ !contains( env.version, 'beta') }}
+          prerelease: ${{ contains( env.version, 'beta') }}
           files: |
             ${{ env.zipFile }}
             ${{ env.unityPackage }}
