@@ -14,7 +14,6 @@
     },
     "bannerUrl":"https://github.com/TheAwtterverse/Awtter-Space-Installer/blob/master/Website/banner.png",
     "githubRepos":[
-        "TheAwtterverse/Awtter-Space-Installer",
-        "TheAwtterverse/AwtterMerger"
+        "TheAwtterverse/Awtter-Space-Installer"
     ]
 }
