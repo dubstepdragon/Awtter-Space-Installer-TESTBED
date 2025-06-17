@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SplashMenuButtons
   m_EditorClassIdentifier: 
   credPath: 
-  SceneFolder: "-\u0295\u2022\u1D25\u2022\u0294 OPEN THIS FIRST \u0295\u2022\u1D25\u2022\u0294"
+  SceneFolder: 
   Buttons:
   - ButtonType: 0
     ButtonText: '  Community'
