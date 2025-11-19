@@ -23,7 +23,7 @@
 
                 yield return www.SendWebRequest();
 
-                if (www.responseCode != 200) yield break;
+                if (InvalidateTokenOnError(www)) yield break;
 
                 AwtterSpaceInstaller.Products = JsonConvert.DeserializeObject<ProductsModel>(www.downloadHandler.text);
 
@@ -36,13 +36,24 @@
             yield break;
         }
 
+        private static bool InvalidateTokenOnError(UnityWebRequest www)
+        {
+            if (www.responseCode != 200)
+            {
+                TokenCache.InvalidateToken();
+                return true;
+            }
+
+            return false;
+        }
+
         public static IEnumerator GetConfig()
         {
             using (var www = UnityWebRequest.Get($"https://{BASE_URL}/api/config"))
             {
                 yield return www.SendWebRequest();
 
-                if (www.responseCode != 200) yield break;
+                if (InvalidateTokenOnError(www)) yield break;
 
                 var okResponse = JsonConvert.DeserializeObject<ConfigOkResponseModel>(www.downloadHandler.text);
 
@@ -61,7 +72,7 @@
 
                 yield return www.SendWebRequest();
 
-                if (www.responseCode != 200) yield break;
+                if (InvalidateTokenOnError(www)) yield break;
 
                 var model = JsonConvert.DeserializeObject<CurrentUserResponseModel>(www.downloadHandler.text);
 
@@ -80,7 +91,7 @@
 
                 yield return www.SendWebRequest();
 
-                if (www.responseCode != 200) yield break;
+                if (InvalidateTokenOnError(www)) yield break;
 
                 var model = JsonConvert.DeserializeObject<ToolboxResponseModel>(www.downloadHandler.text);
 
@@ -106,7 +117,7 @@
 
                 yield return www.SendWebRequest();
 
-                if (www.responseCode != 200) yield break;
+                if (InvalidateTokenOnError(www)) yield break;
 
                 var model = JsonConvert.DeserializeObject<PatreonResponseModel>(www.downloadHandler.text);
 
