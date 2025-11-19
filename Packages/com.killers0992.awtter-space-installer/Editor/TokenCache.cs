@@ -26,6 +26,12 @@ namespace AwtterSDK.Editor
             }
         }
 
+
+        public static void InvalidateToken()
+        {
+            SaveToken("");
+        }
+
         static void SaveToken(string rawToken)
         {
             if (string.IsNullOrEmpty(rawToken))
@@ -46,8 +52,8 @@ namespace AwtterSDK.Editor
 
         static void ReadToken()
         {
-            string key = EditorPrefs.GetString("AwSdkKey");
-            string token = EditorPrefs.GetString("AwSdkToken");
+            string key = EditorPrefs.GetString("AwSdkKey", "");
+            string token = EditorPrefs.GetString("AwSdkToken", "");
 
             if (!String.IsNullOrEmpty(key) && !String.IsNullOrEmpty(token))
                 _token = AesOperation.DecryptString(Convert.FromBase64String(key), token);
